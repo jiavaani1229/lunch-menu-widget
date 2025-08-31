@@ -1,43 +1,24 @@
 // --- CONFIGURATION ---
-// Paste your school's unique Nutrislice URL here.
-// Example: https://yourschooldistrict.nutrislice.com
-const NUTRISLICE_URL = 'https://paceacademy.flikisdining.com';
+// Update this object with the menu for each day of the week.
+const lunchMenu = {
+    // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+    1: "No School Lunch Today",
+    2: "Cheese Tortellini with Marinara Sauce",
+    3: "Breakfast for Lunch! 🥞",
+    4: "Chicken Tenders and Potatoes",
+    5: "Pizza",
+    6: "No School Lunch Today",
+    0: "No School Lunch Today"
+};
 
 // --- CORE LOGIC ---
+// This part does not need to be changed.
 document.addEventListener('DOMContentLoaded', () => {
-    const today = new Date();
-    const formattedDate = `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`;
+    const now = new Date();
+    const today = now.getDay(); // Gets the day of the week (0-6)
     
+    const lunchToday = lunchMenu[today];
     const lunchItemElement = document.getElementById('lunch-item');
-    lunchItemElement.textContent = 'Loading lunch menu...';
 
-    // The API URL for today's menu
-    const apiURL = `${NUTRISLICE_URL}/menu/api/weeks/school/today?format=json`;
-
-    fetch(apiURL)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data && data.menu_sections && data.menu_sections.length > 0) {
-                const todayMenu = data.menu_sections.find(section => section.date === formattedDate);
-
-                if (todayMenu && todayMenu.menu_items && todayMenu.menu_items.length > 0) {
-                    // This finds the main course and displays it.
-                    const mainCourse = todayMenu.menu_items[0];
-                    lunchItemElement.textContent = mainCourse.food_item_name;
-                } else {
-                    lunchItemElement.textContent = "No menu available for today.";
-                }
-            } else {
-                lunchItemElement.textContent = "Could not find menu data.";
-            }
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-            lunchItemElement.textContent = "Failed to load lunch menu. Please try again later.";
-        });
+    lunchItemElement.textContent = lunchToday;
 });
