@@ -2,11 +2,11 @@
 // Update this object with the menu for each day of the week.
 const lunchMenu = {
     // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-    1: "Burgers and Fries",
-    2: "Pesto Chicken Thigh",
-    3: "Pasta",
-    4: "Chicken Drumsticks",
-    5: "Pulled Pork and Mac and Cheese",
+    1: "Lemon Pepper Chicken",
+    2: "No School Lunch Today",
+    3: "No School Lunch Today",
+    4: "Chicken Tenders and Roasted Potatoes",
+    5: "Pizza",
     6: "No School Lunch Today",
     0: "No School Lunch Today"
 };
